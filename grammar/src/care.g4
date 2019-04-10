@@ -26,7 +26,15 @@ PLUS :      '+' ;
 MULTIPLY :  '*' ;
 EXPO :      '^' ;
 
-OPERATOR : DIV | MULTIPLY | PLUS | MINUS | EXPO ;
+EQUAL :     '=' ;
+LEQUAL :    '<=';
+MEQUAL :    '>=';
+NEQUAL :    '!=';
+AND    :    '&' ;
+
+
+
+OPERATOR : DIV | MULTIPLY | PLUS | MINUS | EXPO | EQUAL | LEQUAL | MEQUAL | NEQUAL | AND ;
 
 // BLANK SPACES
 
@@ -47,6 +55,7 @@ SI : 'si';
 
 
 //BASE CHARACTERS
+
 INT : DIGIT+;
 STRING : LETTER+;
 
@@ -57,3 +66,8 @@ fragments
 fragment DIGIT : [0-9];
 
 fragment LETTER : [a-z] | [A-Z] ;
+
+
+
+
+
