@@ -10,9 +10,18 @@ prog : statements EOF;
 
 statements : statement*;
 
-statement : exp;
+statement : finished;
 
-exp : exp OPERATOR exp | INT;
+finished : (exp
+    ) SEMI;
+
+exp :
+    LParen exp RParen           |
+    exp EXPO exp                |
+    MINUS exp                   |
+    exp (MULTIPLY | DIV ) exp   |
+    exp (PLUS | MINUS)  exp     |
+    INT;
 
 
 /*********
@@ -20,11 +29,11 @@ Lexer Rules
 ********/
 
 // operators
-DIV :       '/' ;
 MINUS :     '-' ;
 PLUS :      '+' ;
 MULTIPLY :  '*' ;
 EXPO :      '^' ;
+DIV :       '/' ;
 
 EQUAL :     '=' ;
 LEQUAL :    '<=';
@@ -32,9 +41,10 @@ MEQUAL :    '>=';
 NEQUAL :    '!=';
 AND    :    '&' ;
 
+LParen :    '(' ;
+RParen :    ')' ;
+SEMI   :    ';' ;
 
-
-OPERATOR : DIV | MULTIPLY | PLUS | MINUS | EXPO | EQUAL | LEQUAL | MEQUAL | NEQUAL | AND ;
 
 // BLANK SPACES
 
