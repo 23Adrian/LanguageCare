@@ -1,6 +1,4 @@
 grammar care;
-
-
 /*******
 
 parser rules
@@ -16,12 +14,30 @@ finished : (exp
     ) SEMI;
 
 exp :
+
+    IF exp THEN exp ELSE exp    |
+    SI exp HAGA exp SINO exp    |
+
+    MAP LIST TO exp             |
+    MAP LIST AL exp             |
+
     LParen exp RParen           |
     exp EXPO exp                |
     MINUS exp                   |
     exp (MULTIPLY | DIV ) exp   |
     exp (PLUS | MINUS)  exp     |
-    INT;
+    INT                         ;
+
+
+expList :       propExpList     ;
+
+propExpList :
+
+    exp                         |
+    (exp COMMA propExpList)     ;
+
+
+
 
 
 /*********
@@ -29,21 +45,24 @@ Lexer Rules
 ********/
 
 // operators
-MINUS :     '-' ;
-PLUS :      '+' ;
-MULTIPLY :  '*' ;
-EXPO :      '^' ;
-DIV :       '/' ;
+MINUS   :     '-' ;
+PLUS    :     '+' ;
+MULTIPLY:     '*' ;
+EXPO    :     '^' ;
+DIV     :     '/' ;
 
-EQUAL :     '=' ;
-LEQUAL :    '<=';
-MEQUAL :    '>=';
-NEQUAL :    '!=';
-AND    :    '&' ;
+EQUAL   :    '=' ;
+LEQUAL  :    '<=';
+MEQUAL  :    '>=';
+NEQUAL  :    '!=';
+AND     :    '&' ;
 
-LParen :    '(' ;
-RParen :    ')' ;
-SEMI   :    ';' ;
+COMMA   :    ',' ;
+LParen  :    '(' ;
+RParen  :    ')' ;
+SEMI    :    ';' ;
+
+
 
 
 // BLANK SPACES
@@ -58,8 +77,30 @@ LINE_COMMENT : DIV DIV ~[\r\n]* -> channel(HIDDEN);
 
 //OTHER TOKENS
 
-IF : 'if';
-SI : 'si';
+
+IF :     'if'       ;
+SI :     'si'       ;
+
+ELSE:    'else'     ;
+SINO:   'sino'      ;
+
+THEN:   'then'      ;
+HAGA:   'haga'      ;
+
+MAP:    'map'       ;
+
+DEFINE: 'define'    ;
+DIAGNOS:'diagnos'   ;
+
+LIST:   'list'      ;
+
+
+TO:     'to'        ;
+AL:     'al'        ;
+
+
+
+
 
 
 
@@ -68,6 +109,7 @@ SI : 'si';
 
 INT : DIGIT+;
 STRING : LETTER+;
+
 
 /******
 fragments

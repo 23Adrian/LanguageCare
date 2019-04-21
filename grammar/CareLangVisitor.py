@@ -2,6 +2,7 @@ from grammar.Build.careParser import careParser
 from grammar.Build.careVisitor import careVisitor as careLangOrigin
 
 
+
 class CareLangVisitor(careLangOrigin):
     # Visit a parse tree produced by careParser#prog.
     def visitProg(self, ctx: careParser.ProgContext):
@@ -13,6 +14,7 @@ class CareLangVisitor(careLangOrigin):
 
     # Visit a parse tree produced by careParser#statement.
     def visitStatement(self, ctx: careParser.StatementContext):
+        print("made a statement")
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by careParser#finished.
@@ -22,9 +24,11 @@ class CareLangVisitor(careLangOrigin):
 
         if(ctx.exp()):
             result = self.visit(ctx.exp())
+            print("the result is :" + str(result))
 
         else:
             result = self.visitChildren(ctx)
+            print("not a success =(")
 
         return  result
 
@@ -54,9 +58,6 @@ class CareLangVisitor(careLangOrigin):
 
         if(ctx.EXPO()):
             return  self.visitExp(ctx.exp(0)) ** self.visitExp(ctx.exp(1))
-
-
-
 
         return self.visitChildren(ctx)
 

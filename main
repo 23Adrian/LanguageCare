@@ -1,4 +1,24 @@
 import  sys
 
 from antlr4 import *
+from grammar.CareLangVisitor import CareLangVisitor
+from  grammar.Build.careParser import careParser
+from grammar.Build.careLexer import careLexer
+
+def main():
+    filepath ='scripts/test.care'
+    input = FileStream(filepath)
+    lexer = careLexer(input)
+    stream = CommonTokenStream(lexer)
+    parser = careParser(stream)
+    tree = parser.prog()
+
+    visitor = CareLangVisitor()
+    return visitor.visit(tree)
+
+if __name__ == '    main    ':
+     main()
+
+
+
 
