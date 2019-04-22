@@ -2,14 +2,10 @@ import  sys
 
 from antlr4 import *
 from grammar.CareLangVisitor import CareLangVisitor
-from grammar.Build.careParser import careParser
-from grammar.Build.careLexer import careLexer
+from grammar.src.Antlr.careParser import careParser
+from grammar.src.Antlr.careLexer import careLexer
 
 def __main__():
-    """
-
-    :rtype: object
-    """
     filepath = 'scripts/test.care'
     inputs = FileStream(filepath)
     lexer = careLexer(inputs)
@@ -20,5 +16,5 @@ def __main__():
     visitor = CareLangVisitor()
     return visitor.visit(tree)
 
-if __name__ == '    main    ':
+if __name__ == '__main__':
      __main__()

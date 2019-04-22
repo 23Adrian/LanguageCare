@@ -1,5 +1,5 @@
-from grammar.Build.careParser import careParser
-from grammar.Build.careVisitor import careVisitor as careLangOrigin
+from grammar.src.Antlr.careParser import careParser
+from grammar.src.Antlr.careVisitor import careVisitor as careLangOrigin
 
 
 
@@ -36,19 +36,17 @@ class CareLangVisitor(careLangOrigin):
     # Visit a parse tree produced by careParser#exp.
     def visitExp(self, ctx: careParser.ExpContext):
         if(ctx.INT()):
-            return int(ctx.INT().getText)
+            return int(ctx.INT().getText())
 
         if(ctx.LParen()):
             return self.visit(ctx.exp(0))
 
         if(ctx.PLUS()):
+
             return self.visitExp(ctx.exp(0)) + self.visitExp(ctx.exp(1))
 
         if (ctx.MINUS()):
-            return self.visitExp(ctx.exp(0)) - self.visitExp(ctx.exp(1))
-
-        if(ctx.MINUS() and not ctx.exp(1)):
-            return self.visitExp(ctx.exp(0)) * -1
+            return self.visitExp(ctx.exp(0)) + (self.visitExp(ctx.exp(1)) * -1)
 
         if (ctx.MULTIPLY()):
             return self.visitExp(ctx.exp(0)) * self.visitExp(ctx.exp(1))

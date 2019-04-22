@@ -10,11 +10,13 @@ statements : statement*;
 
 statement : finished;
 
-finished : (exp
-    ) SEMI;
+finished :
+    (
+    exp
+    )
+    SEMI;
 
 exp :
-
     IF exp THEN exp ELSE exp    |
     SI exp HAGA exp SINO exp    |
 
@@ -26,15 +28,18 @@ exp :
     MINUS exp                   |
     exp (MULTIPLY | DIV ) exp   |
     exp (PLUS | MINUS)  exp     |
-    INT                         ;
+    INT
+    ;
 
 
 expList :       propExpList     ;
-
 propExpList :
 
     exp                         |
     (exp COMMA propExpList)     ;
+
+
+
 
 
 
